@@ -9,11 +9,11 @@ class Api extends CI_Controller {
     
     private $data = [];
     private $descriptionLibrary = array(
-        'Zarejestrowano dane przesyłki, przesyłka jeszcze nie nadana' => 'Parcel Registered, waiting for pickup.',
-        'Przyjęcie przesyłki w oddziale DPD ' => 'Parcel has been picked up in office',
-        'Przekazano za granicę' => 'In transit',
-        'Przesyłka doręczona ' => 'Parcel delivered',
-        'Przesyłka odebrana przez Kuriera' => 'Parcel has been picked up by our agent'
+        'zarejestrowano dane przesyłki, przesyłka jeszcze nie nadana' => 'Parcel Registered, waiting for pickup.',
+        'przyjęcie przesyłki w oddziale dpd' => 'Parcel has been picked up in office',
+        'przekazano za granicę' => 'In transit',
+        'przesyłka doręczona' => 'Parcel delivered',
+        'przesyłka odebrana przez kuriera' => 'Parcel has been picked up by our agent'
     );
     
     public function __construct() {
@@ -36,26 +36,33 @@ class Api extends CI_Controller {
                 )
         );
     }
-
+    
+    public function testTracking(){
+        
+        $connector = new SoapConnectorPl();
+         $resultObject = $connector->checkTrackingNumberPl(13439300055369);var_dump($resultObject);
+         var_dump($resultObject);
+    }
     public function updateTrackingLog() {
 
         $trackingNumbers = $this->Tracking->getTrackings();
         $connector = new SoapConnectorPl();
+         //$resultObject = $connector->checkTrackingNumberPl(13439300055369);var_dump($resultObject);
+         //die();
         foreach ($trackingNumbers as $tracking) {
             $resultObject = $connector->checkTrackingNumberPl($tracking->realTracking);
             if (!isset($resultObject->return->eventsList)) {
                 continue;
             }
             $result = $resultObject->return->eventsList;
-            $AAAA = gettype($result);
             if (gettype($result) === "object") {
                 $this->checkParcelDelivery($result, $tracking->realTracking);
-                $result->description = $this->descriptionLibrary[$result->description];
+            $result->description = $this->descriptionLibrary[strtolower(rtrim($result->description))];
                 $this->setTrackingDataArray($result, $tracking->idTracking);
             } else {
                 foreach ($result as $singleResult) {
                     $this->checkParcelDelivery($singleResult, $tracking->realTracking);
-                    $singleResult->description = $this->descriptionLibrary[$singleResult->description];
+                    $singleResult->description = $this->descriptionLibrary[strtolower(rtrim($singleResult->description))];
                     $this->setTrackingDataArray($singleResult, $tracking->idTracking);
                 }
             }
