@@ -7,7 +7,7 @@ include(APPPATH . 'include/ApiConnectorPl.php');
 class Api extends CI_Controller {
     
     
-    private $data;
+    private $data = [];
     private $descriptionLibrary = array(
         'Zarejestrowano dane przesyłki, przesyłka jeszcze nie nadana' => 'Parcel Registered, waiting for pickup.',
         'Przyjęcie przesyłki w oddziale DPD ' => 'Parcel has been picked up in office',
@@ -42,7 +42,6 @@ class Api extends CI_Controller {
         $trackingNumbers = $this->Tracking->getTrackings();
         $connector = new SoapConnectorPl();
         foreach ($trackingNumbers as $tracking) {
-            $data = [];
             $resultObject = $connector->checkTrackingNumberPl($tracking->realTracking);
             if (!isset($resultObject->return->eventsList)) {
                 continue;
@@ -64,6 +63,7 @@ class Api extends CI_Controller {
             foreach ($this->data as $singleLog) {
                 $this->Log->insertTracking($singleLog);
             }
+            $this->data = [];
         }
     }
 
