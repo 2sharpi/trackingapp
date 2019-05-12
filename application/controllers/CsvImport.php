@@ -6,7 +6,6 @@ class CsvImport extends MY_Controller {
 
     private $uploadData;
 
-
     public function index() {
         $this->load->view('dashboard/header');
         $this->load->view('dashboard/uploadForm');
@@ -36,12 +35,9 @@ class CsvImport extends MY_Controller {
         $this->csvimporter->initialize($file, ',', '"');
         $csvArray = $this->csvimporter->read();
         $this->load->model('Tracking');
-        foreach($csvArray as $trackingRecord){
-            if($trackingRecord['internal'] === null){
-                $this->Tracking->insertTracking($trackingRecord['dpd']);
-            } else {
-                $this->Tracking->insertTracking($trackingRecord['dpd'],$trackingRecord['internal']);
-            }
+        foreach ($csvArray as $trackingRecord) {
+            
+               $this->Tracking->insertTracking($trackingRecord);
         }
         redirect('Dashboard');
     }

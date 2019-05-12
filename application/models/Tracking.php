@@ -8,7 +8,7 @@ class Tracking extends CI_Model {
         $query = $this->db->get_where('Tracking', array('realTracking' => $trackingNumber));
         return $query->result();
     }
-    
+
     public function checkGeneratedTrackingNumber($trackingNumber) {
         $query = $this->db->get_where('Tracking', array('generatedTracking' => $trackingNumber));
         return $query->result();
@@ -23,11 +23,11 @@ class Tracking extends CI_Model {
         }
         return $query->result();
     }
-    
-    public function getUndeliveredTrackings(){
-        $query= $this->db->get_where('Tracking',array('isDelivered' => false));
-         return $query->result();
-    }  
+
+    public function getUndeliveredTrackings() {
+        $query = $this->db->get_where('Tracking', array('isDelivered' => false));
+        return $query->result();
+    }
 
     public function getTrackingById($idTracking) {
         $query = $this->db->get_where('Tracking', array("idTracking" => $idTracking));
@@ -39,27 +39,34 @@ class Tracking extends CI_Model {
         }
     }
 
-    public function insertTracking($trackingNumber, $generatedTracking = null) {
+    public function insertTracking($trackingArray) {
+        if (!isset($trackingArray['generatedTracking'])) {
+            $trackingArray['generatedTracking'] = strrev($trackingArray['realTracking']);
+        }
+        $this->db->trans_start(FALSE);
+        $this->db->insert('Tracking', $trackingArray);
+        $this->db->trans_complete();
+    }
+
+    public function insertTracking2($trackingNumber, $generatedTracking = null) {
         if ($generatedTracking === null) {
             $generatedTracking = strrev($trackingNumber);
         }
         $data = array('realTracking' => $trackingNumber, 'generatedTracking' => $generatedTracking);
         $this->db->insert('Tracking', $data);
     }
-    
-    public function updateDeliveryStatus($realTracking,$value = true){
+
+    public function updateDeliveryStatus($realTracking, $value = true) {
         $data = array('isDelivered' => $value);
-        $this->db->where('realTracking',$realTracking);
-        $this->db->update('Tracking',$data);
+        $this->db->where('realTracking', $realTracking);
+        $this->db->update('Tracking', $data);
     }
-    
-    
 
     public function getTrackingIdByNumber($realTracking) {
         $query = $this->db->select('idTracking')->where(array('realTracking' => $realTracking));
         $query = $this->db->get('Tracking');
         $result = $query->result();
-        if(sizeof($result)===0){
+        if (sizeof($result) === 0) {
             return null;
         }
         return $result[0]->idTracking;

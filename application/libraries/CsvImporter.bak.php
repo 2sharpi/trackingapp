@@ -1,4 +1,3 @@
-
 <?php
 
 defined('BASEPATH') or exit('access denied');
@@ -13,6 +12,7 @@ class CsvImporter {
         $this->filePath = $filePath;
         $this->delim  =$delimiter;
         $this->enclosure = $enclosure;
+
     }
 
     /**
@@ -32,32 +32,14 @@ class CsvImporter {
 
                 $dpdNum = (string)$line[0];
                 $optionalNum = null;
-                $optionalLocation = null;
-                $optionalPostCode = null;
-                $optionalCountryCode = null;
                 if( isset( $line[1] ) ) {
-                    $optionalNum = (string) $line[1];
-                }
-
-                if( isset( $line[2] ) ) {
-                    $optionalLocation = (string) $line[2];
-                }
-
-                if( isset( $line[3] ) ) {
-                    $optionalPostCode = (string) $line[3];
-                }
-                
-                if( isset( $line[4] ) ) {
-                    $optionalCountryCode= (string) $line[4];
+                    $optionalNum = (string)$line[1];
                 }
 
                 if ($dpdNum && is_numeric($dpdNum)) {
                     $data[$dpdNum] = [
-                        'realTracking' => $dpdNum,
-                        'generatedTracking' => $optionalNum ? $optionalNum : null,
-                        'address' => $optionalLocation ? $optionalLocation : null,
-                        'postalCode' => $optionalPostCode ? $optionalPostCode : null,
-                        'countryCode' => $optionalCountryCode ? $optionalCountryCode : null
+                        'dpd' => $dpdNum,
+                        'internal' => $optionalNum ? $optionalNum : null,
                     ];
                 }
             }
@@ -69,4 +51,3 @@ class CsvImporter {
         return $data;
     }
 }
-
