@@ -1,0 +1,131 @@
+1. Stworzenie logowania
+2. Stworzenie listingu wpisawnych trackingu
+3. Edycja trackingu - zasada prosta, każdy status ma godzine - pojawiają się tylko wpisy których godzina mineła i maja pole autoupdate true. jeśli w miedzyczasie status sie zmieni, dla reszty wpisów wyłączamy
+autoupdate. Teksty formularzy wkleić bezpośrednio do pola tekstowego.
+
+##
+Dwa kody trackigów:
+
+4. Update trackingu tylko dla trackigów ze statusem delivered = false
+5. Usunięcie trackingu.
+6. Import CSV
+
+
+## TO DO
+
+dodawanie daty logowania lub nieautoryzowanego logowania
+dodanie logow appki
+
+13439300055352
+13439300055369
+13439300055644
+13439300061284
+13439300061405
+13439300061293
+13439300065880
+13439300066102
+13439300067023
+13439300067486
+13439300067559
+13439300067641
+13439300067924
+13439300068354
+13439300068351
+13439300068695
+
+upload_path.orig_name
+
+
+/var/www/html/soapdpd/application/controllers/DefaultController.php:39:
+array (size=15)
+  0 => 
+    object(stdClass)[23]
+      public 'idTracking' => string '5' (length=1)
+      public 'realTracking' => string '13439300055369' (length=14)
+      public 'generatedTracking' => string '11112' (length=5)
+      public 'isDelivered' => string '0' (length=1)
+  1 => 
+    object(stdClass)[24]
+      public 'idTracking' => string '6' (length=1)
+      public 'realTracking' => string '13439300055644' (length=14)
+      public 'generatedTracking' => string '11113' (length=5)
+      public 'isDelivered' => string '0' (length=1)
+  2 => 
+    object(stdClass)[25]
+      public 'idTracking' => string '7' (length=1)
+      public 'realTracking' => string '13439300061284' (length=14)
+      public 'generatedTracking' => string '1114' (length=4)
+      public 'isDelivered' => string '0' (length=1)
+  3 => 
+    object(stdClass)[26]
+      public 'idTracking' => string '8' (length=1)
+      public 'realTracking' => string '13439300061405' (length=14)
+      public 'generatedTracking' => string '51551' (length=5)
+      public 'isDelivered' => string '0' (length=1)
+  4 => 
+    object(stdClass)[27]
+      public 'idTracking' => string '9' (length=1)
+      public 'realTracking' => string '13439300061293' (length=14)
+      public 'generatedTracking' => string '16343' (length=5)
+      public 'isDelivered' => string '0' (length=1)
+  5 => 
+    object(stdClass)[28]
+      public 'idTracking' => string '10' (length=2)
+      public 'realTracking' => string '13439300065880' (length=14)
+      public 'generatedTracking' => string '5676575' (length=7)
+      public 'isDelivered' => string '0' (length=1)
+  6 => 
+    object(stdClass)[29]
+      public 'idTracking' => string '11' (length=2)
+      public 'realTracking' => string '13439300066102' (length=14)
+      public 'generatedTracking' => string '57658467' (length=8)
+      public 'isDelivered' => string '0' (length=1)
+  7 => 
+    object(stdClass)[30]
+      public 'idTracking' => string '12' (length=2)
+      public 'realTracking' => string '13439300067023' (length=14)
+      public 'generatedTracking' => string '5368675' (length=7)
+      public 'isDelivered' => string '0' (length=1)
+  8 => 
+    object(stdClass)[31]
+      public 'idTracking' => string '13' (length=2)
+      public 'realTracking' => string '13439300067486' (length=14)
+      public 'generatedTracking' => string '457536765' (length=9)
+      public 'isDelivered' => string '0' (length=1)
+  9 => 
+    object(stdClass)[32]
+      public 'idTracking' => string '14' (length=2)
+      public 'realTracking' => string '13439300067559' (length=14)
+      public 'generatedTracking' => string '54756756' (length=8)
+      public 'isDelivered' => string '0' (length=1)
+  10 => 
+    object(stdClass)[33]
+      public 'idTracking' => string '15' (length=2)
+      public 'realTracking' => string '13439300067641' (length=14)
+      public 'generatedTracking' => string '4647567' (length=7)
+      public 'isDelivered' => string '0' (length=1)
+  11 => 
+    object(stdClass)[34]
+      public 'idTracking' => string '16' (length=2)
+      public 'realTracking' => string '13439300067924' (length=14)
+      public 'generatedTracking' => string '465536757' (length=9)
+      public 'isDelivered' => string '0' (length=1)
+  12 => 
+    object(stdClass)[35]
+      public 'idTracking' => string '17' (length=2)
+      public 'realTracking' => string '13439300068354' (length=14)
+      public 'generatedTracking' => string '464567536' (length=9)
+      public 'isDelivered' => string '0' (length=1)
+  13 => 
+    object(stdClass)[36]
+      public 'idTracking' => string '18' (length=2)
+      public 'realTracking' => string '13439300068351' (length=14)
+      public 'generatedTracking' => string '46546537' (length=8)
+      public 'isDelivered' => string '0' (length=1)
+  14 => 
+    object(stdClass)[37]
+      public 'idTracking' => string '19' (length=2)
+      public 'realTracking' => string '13439300068695' (length=14)
+      public 'generatedTracking' => string '245253' (length=6)
+      public 'isDelivered' => string '0' (length=1)
+
