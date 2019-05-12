@@ -1,0 +1,8 @@
+1. Modyfikacja Bazy - isDelivered zamienic na overallStatus i tam pakować statusy ogólne, TrackingLog - dodać datę i czas oddzielnie
+2. Sprawdzić różne przypadki API
+3. Wyrzucić tłumaczenia do arraya w oddzielnym modelu
+4. Dopisać przypadki
+5. zmiana widoku na listę rozwijaną
+6. sortowanie po dacie
+
+
