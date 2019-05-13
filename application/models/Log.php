@@ -20,12 +20,11 @@ class Log extends CI_Model {
         $modifiedData = $trackingLog;
         unset($modifiedData['Description']);
         $query = $this->db->get_where('Log', $modifiedData);
-        var_dump($query->result());
         if (sizeof($query->result()) === 0) {
             $this->db->insert('Log', $trackingLog);
         }
     }
-
+    
     public function updateTrackingLog($idLog, array $trackingLog) {
         
         $this->db->where('idLog', $idLog);

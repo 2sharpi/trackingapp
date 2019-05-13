@@ -7,13 +7,7 @@ include(APPPATH . 'include/ApiConnectorPl.php');
 class Api extends CI_Controller {
 
     private $data = [];
-    private $descriptionLibrary = array(
-        'zarejestrowano dane przesyłki, przesyłka jeszcze nie nadana' => 'Parcel Registered, waiting for pickup.',
-        'przyjęcie przesyłki w oddziale dpd' => 'Parcel has been picked up in office',
-        'przekazano za granicę' => 'In transit',
-        'przesyłka doręczona' => 'Parcel delivered',
-        'przesyłka odebrana przez kuriera' => 'Parcel has been picked up by our agent'
-    );
+    private $lastHierarchy = 0;
 
     public function __construct() {
         parent::__construct();
@@ -28,55 +22,77 @@ class Api extends CI_Controller {
         }
     }
 
-    private function setTrackingDataArray($dataObject, $idTracking) {
-        array_push($this->data, array(
-            'Date' => $dataObject->eventTime,
-            'Description' => $dataObject->description,
-            'Tracking_idTracking' => $idTracking
-                )
-        );
-        $var = null;
+    private function setTrackingDataArray($result, $tracking, $trackingCase) {
+        $data = array();
+        if (true) {
+            if ($trackingCase['hierarchy'] != $this->lastHierarchy) {
+                $this->lastHierarchy = $trackingCase['hierarchy'];
+                $data['Date'] = $result->eventTime;
+                $data['Description'] = $trackingCase['description'];
+                $data['Tracking_idTracking'] = $tracking->idTracking;
+                $data['hierarchy'] = $trackingCase['hierarchy'];
+                $data['realDescription'] = $result->description;
+                if ($trackingCase['address'] == 'API') {
+                    $data['address'] = $tracking->address;
+                    $data['countryCode'] = $tracking->countryCode;
+                } else {
+                    $data['address'] = $trackingCase['address'];
+                    $data['countryCode'] = 'UK';
+                }
+                array_push($this->data, $data);
+            }
+        } else {
+            $data['Date'] = $result->eventTime;
+            $data['Description'] = 'Returned to sender';
+            $data['Tracking_idTracking'] = $tracking->idTracking;
+            $data['hierarchy'] = 6;
+            $data['realDescription'] = 'zwrot do nadawcy';
+            $data['address'] = 'FDS Depot';
+            $data['countryCode'] = 'UK';
+        }
     }
 
     public function testTracking() {
 
         $connector = new SoapConnectorPl();
-        $resultObject = $connector->checkTrackingNumberPl(13439300055369);
-        var_dump($resultObject);
-        var_dump($resultObject);
+        $resultObject = $connector->checkTrackingNumberPl(13439300055644);
     }
 
-    public function updateTrackingLog() {
+    public function updateTrackingLog($redirectToDashboard = null) {
 
         $trackingNumbers = $this->Tracking->getTrackings();
         $connector = new SoapConnectorPl();
-        //$resultObject = $connector->checkTrackingNumberPl(13439300055369);var_dump($resultObject);
-        //die();
         foreach ($trackingNumbers as $tracking) {
             $resultObject = $connector->checkTrackingNumberPl($tracking->realTracking);
+
+
+
             if (!isset($resultObject->return->eventsList)) {
                 continue;
             }
             $result = $resultObject->return->eventsList;
             if (gettype($result) === "object") {
-                $this->checkParcelDelivery($result, $tracking->realTracking);
                 $trackingCase = $this->TrackingCase->getTrackingCase(strtolower(rtrim($result->description)));
-                $result->description = $trackingCase['description'];
-                $this->setTrackingDataArray($result, $tracking->idTracking);
+                $this->setTrackingDataArray($result, $tracking, $trackingCase);
+                $this->Tracking->updateOverallStatus($tracking->realTracking, $trackingCase['overallStatus']);
             } else {
-                foreach ($result as $singleResult) {
-                    $this->checkParcelDelivery($singleResult, $tracking->realTracking);
+                foreach ($result as $key => $singleResult) {
                     $trackingCase = $this->TrackingCase->getTrackingCase(strtolower(rtrim($singleResult->description)));
-                    $singleResult->description = $trackingCase['description'];
-                    $this->setTrackingDataArray($singleResult, $tracking->idTracking);
+                    $this->setTrackingDataArray($singleResult, $tracking, $trackingCase);
+                    if ($key == 0) {
+                        $this->Tracking->updateOverallStatus($tracking->realTracking, $trackingCase['overallStatus']);
+                    }
                 }
             }
-
-            foreach ($this->data as $singleLog) {
-                $this->Log->insertTracking($singleLog);
-            }
-            $this->data = [];
         }
+        foreach ($this->data as $singleLog) {
+            $this->Log->insertTracking($singleLog);
+            
+        }
+
+        $this->data = [];
+        $this->lastHierarchy = 0;
+        redirect(base_url('Dashboard'));
     }
 
 }

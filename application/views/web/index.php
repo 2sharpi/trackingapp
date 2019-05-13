@@ -21,7 +21,7 @@
 
         <section class="top-nav">
 
-            <div class="logo"><a href="http://serwiswordpress.pl/projekty/fdsparcel/"><img src="img/logo.svg"></a></div>
+            <div class="logo"><a href="http://serwiswordpress.pl/projekty/fdsparcel/"><img src="<?php echo base_url('views/web/') ?>img/logo.svg"></a></div>
 
             <input id="menu-toggle" type="checkbox" />
             <label class='menu-button-container' for="menu-toggle">
@@ -48,6 +48,7 @@
                             <form method="post" action="<?php echo base_url('PublicPage/tracking'); ?>">   
                                 <input class="label-home" type="text" name="trackingNumber" placeholder="Enter the shipment number"></input>
                                 <input style="height:50px" type="image" src="<?php echo base_url('/views/web/') ?>img/search.svg" border="0" alt="Submit" />
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -63,9 +64,9 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
                         <div class="work-step">
-                            <div class="work-item"><img class="work-icon" src="img/numer.svg"><h3>Podaj numer przesyłki z zamówienia</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p></div>
-                            <div class="work-item"><img class="work-icon" src="img/packnumber.svg"><h3>Zlokalizuj swoją przesyłkę</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p></div>
-                            <div class="work-item"><img class="work-icon" src="img/delivery.svg"><h3>Odbierz paczkę od kuriera</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p></div>
+                            <div class="work-item"><img class="work-icon" src="<?php echo base_url('views/web/') ?>img/numer.svg"><h3>Podaj numer przesyłki z zamówienia</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p></div>
+                            <div class="work-item"><img class="work-icon" src="<?php echo base_url('views/web/') ?>img/packnumber.svg"><h3>Zlokalizuj swoją przesyłkę</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p></div>
+                            <div class="work-item"><img class="work-icon" src="<?php echo base_url('views/web/') ?>img/delivery.svg"><h3>Odbierz paczkę od kuriera</h3><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p></div>
                         </div>
                     </div>
                 </div>
@@ -137,7 +138,7 @@
         <footer class="footer">
             <div class="contener">
                 <div class="footer-area">
-                    <div class="footer-logo"><img src="<?php echo base_url('include/views/web/') ?>img/logowhite.svg"></div>
+                    <div class="footer-logo"><img src="<?php echo base_url('views/web/') ?>img/logowhite.svg"></div>
                     <div class="footer-menu">
                         <ul>
                             <li>About us</li>

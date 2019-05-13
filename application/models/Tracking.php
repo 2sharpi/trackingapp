@@ -40,7 +40,7 @@ class Tracking extends CI_Model {
     }
 
     public function insertTracking($trackingArray) {
-        if (!isset($trackingArray['generatedTracking'])) {
+        if (!isset($trackingArray['generatedTracking']) OR $trackingArray['generatedTracking'] == '') {
             $trackingArray['generatedTracking'] = strrev($trackingArray['realTracking']);
         }
         $this->db->trans_start(FALSE);
@@ -56,8 +56,8 @@ class Tracking extends CI_Model {
         $this->db->insert('Tracking', $data);
     }
 
-    public function updateDeliveryStatus($realTracking, $value = true) {
-        $data = array('isDelivered' => $value);
+    public function updateOverallStatus($realTracking, $value = true) {
+        $data = array('overallStatus' => $value);
         $this->db->where('realTracking', $realTracking);
         $this->db->update('Tracking', $data);
     }

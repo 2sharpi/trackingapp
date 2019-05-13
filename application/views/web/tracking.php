@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 
+<?php var_dump($tracking) ?>
+<?php var_dump($trackingLog) ?>
+
 <html lang="en" class="no-js">
     <head>
         <meta charset="UTF-8" />
@@ -45,7 +48,10 @@
 
                     <div class="go-tracking">
                         <h1>Parcel tracking:</h1>
-                        <div class="search-label"><input class="label-track" type="text" name="fname" placeholder="1343 9300 0544 16 6"></input><img class="search" src="<?php echo base_url('views/web/') ?>img/search.svg"></div>
+                        <div class="search-label"><form method="post" action="<?php echo base_url('PublicPage/tracking'); ?>">   
+                                <input class="label-track" type="text" name="trackingNumber" placeholder="Enter the shipment number"></input>
+                                <input style="height:50px" type="image" src="<?php echo base_url('/views/web/') ?>img/search.svg" border="0" alt="Submit" />
+                            </form></div>
                     </div>
 
                     <div class="tracking-step">
@@ -68,22 +74,32 @@
                                 </div>
 
                                 <div class="tracking-info-res">
-                                    <div class="info-item"><?php echo $tracking->generatedTracking?></div>
-                                    <div class="info-item"><?php if($tracking->isDelivered=='1'){echo 'Delivered';}else{'On the way';} ?></div>
+                                    <div class="info-item"><?php echo $tracking->generatedTracking ?></div>
+                                    <div class="info-item"><?php echo $tracking->overallStatus ?></div>
                                 </div>
 
                             </div>
                         </div>	
                         <div class="status">
-                            <?php foreach($trackingLog as $log){?>
-                            <?php $date = explode('T',$log->Date)?>
+                            <div class="status-item-name">
+                                <div class="date">Date</div>
+                                <div class="time">Time</div>
+                                <div class="location">Parcel Center</div>
+                                <div class="parcel">Parcel status</div>
+                            </div>  
+                            <?php foreach ($trackingLog as $log) {
+                                $d = new DateTime($log->Date);
+                                ?>
+    <?php $date = $d->format('Y-m-d');
+    $time = $d->format('H:i') ?>
 
-                            <div class="status-item">
-                                <div class="date"><?php echo $date[0]?></div>
-                                <div class="time"><?php echo substr($date[1],0,-3)?></div>
-                                <div class="parcel"><?php echo $log->Description?></div>
-                            </div>
-                            <?php }?>
+                                <div class="status-item">
+                                    <div class="date"><?php echo $date ?></div>
+                                    <div class="time"><?php echo $time ?></div>
+                                    <div class="location"><?php echo $log->address .' '.$log->countryCode?></div>
+                                    <div class="parcel"><?php echo $log->Description ?></div>
+                                </div>
+<?php } ?>
 
 
                         </div>

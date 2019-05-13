@@ -21,8 +21,11 @@ class TrackingLog extends MY_Controller {
         }
         $this->load->model('Log');
         $data = array(
-            'Date' => $this->input->post('date'),
+            'Date' => $this->input->post('date').'T'.$this->input->post('time'),
             'Description' => $this->input->post('description'),
+            'realDescription' => $this->input->post('realDescritpion'),
+            'address' => $this->input->post('address'),
+            'countryCode' => $this->input->post('countryCode'),
             'isHidden' => $this->input->post('isHidden')
         );
         //var_dump($data);die();

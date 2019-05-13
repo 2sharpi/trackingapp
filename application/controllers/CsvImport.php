@@ -39,7 +39,7 @@ class CsvImport extends MY_Controller {
             
                $this->Tracking->insertTracking($trackingRecord);
         }
-        redirect('Dashboard');
+        redirect('Api/updateTrackingLog/1');
     }
 
 }
