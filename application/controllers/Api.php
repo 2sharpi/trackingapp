@@ -72,7 +72,7 @@ class Api extends CI_Controller {
                     }
                 }
             }
-            $this->lastHierarchy == 0;
+            $this->lastHierarchy = 0;
             $this->data = array_reverse($this->data);
             $uncheckedData = $this->data;
             foreach ($uncheckedData as $key => $singleLog) {
@@ -82,13 +82,16 @@ class Api extends CI_Controller {
                     unset($this->data[$key]);
                 }
             }
+            $this->lastHierarchy = 0;
             $this->data = array_reverse($this->data);
-        }
-        foreach ($this->data as $singleLog) {
-            $this->Log->insertTracking($singleLog);
+            foreach ($this->data as $singleLog) {
+                $this->Log->insertTracking($singleLog);
+                $this->data = [];
+            }
         }
 
-        $this->data = [];
+
+
         redirect(base_url('Dashboard'));
     }
 

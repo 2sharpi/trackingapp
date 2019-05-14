@@ -206,22 +206,19 @@ details p{padding: 30px 0;font-weight: normal}
 
 .tracking-step{display: grid;grid-template-columns: 20% 20% 20% 20% 20%;margin-top: 10px}
 
-.step{text-align: center;background: #ddd;padding: 30px;border-right: solid 1px #f2f2f2;}
+.step{ font-weight: normal; text-align: center;background: #ddd;padding: 30px;border-right: solid 1px #f2f2f2;}
+
+.active{background: #bf0000 !important;
+        color: #fff !important; font-weight: bold}
 
 
 #first-step {
-    background: #bf0000;
-    color: #fff;
+    
     padding: 30px;
     border-radius: 50px 0 0 50px;
     
 }
 
-#step-two{
-    background: #bf0000;
-    color: #fff;
-    font-weight: bold;
-}
 
 #last-step {
     background: #ddd;
@@ -231,8 +228,7 @@ details p{padding: 30px 0;font-weight: normal}
 }
 
 #last-step-done {
-    background: #bf0000;
-    color: #fff;
+    
     padding: 30px;
     border-radius:0 50px 50px 0;
     border-right:none;

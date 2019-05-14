@@ -48,14 +48,6 @@ class Tracking extends CI_Model {
         $this->db->trans_complete();
     }
 
-    public function insertTracking2($trackingNumber, $generatedTracking = null) {
-        if ($generatedTracking === null) {
-            $generatedTracking = strrev($trackingNumber);
-        }
-        $data = array('realTracking' => $trackingNumber, 'generatedTracking' => $generatedTracking);
-        $this->db->insert('Tracking', $data);
-    }
-
     public function updateOverallStatus($realTracking, $value = true) {
         $data = array('overallStatus' => $value);
         $this->db->where('realTracking', $realTracking);

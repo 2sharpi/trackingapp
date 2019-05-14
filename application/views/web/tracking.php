@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 
-<?php var_dump($tracking) ?>
-<?php var_dump($trackingLog) ?>
-
 <html lang="en" class="no-js">
     <head>
         <meta charset="UTF-8" />
@@ -56,13 +53,23 @@
 
                     <div class="tracking-step">
 
-                        <div id="first-step" class="step"><strong>Parcel handed to FDS</strong></div>
+                        <div id="first-step" class="step">Parcel handed to FDS</div>
                         <div id="step-two" class="step">In transit</div>
                         <div class="step">At parcel delivery centre</div>
                         <div class="step">Parcel out for delivery</div>
                         <div id="last-step" class="step">Delivered</div>
 
                     </div>
+                    <script type="text/javascript">
+                        var statusCase = ['Parcel handed to FDS','In transit','At parcel delivery centre','Parcel out for delivery','Delivered'];
+                        var elements = document.getElementsByClassName('step');
+                        var count = 0;
+                        for(count = 0; count > statusCase.indexOf('<?php echo $tracking->overallStatus  ?>'); count++){
+                            
+                            elements[count].classList.add("active");
+                            console.log(elements[count]);
+                        }
+                    </script>
                     <div class="trans-page">
 
                         <div class="track-number">		
@@ -77,7 +84,7 @@
                                 <div class="tracking-info-res">
                                     <div class="info-item"><?php echo $tracking->generatedTracking ?></div>
                                     <div class="info-item"><?php echo $tracking->address ?></div>
-                                    <div class="info-item"><?php echo $tracking->overallStatus ?></div>
+                                    <div id="deliveryStatus" class="info-item"><?php echo $tracking->overallStatus ?></div>
                                 </div>
 
                             </div>

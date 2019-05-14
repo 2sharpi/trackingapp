@@ -33,10 +33,15 @@ class TrackingLog extends MY_Controller {
         redirect('TrackingLog/showTrackingDetails/'.$this->input->post('idTracking'));
     }
     
+    public function updateTrackingStatus($realTracking,$overallStatus,$idTracking){
+        $this->load->model('Tracking');
+        $this->Tracking->updateOverallStatus($realTracking,urldecode($overallStatus));
+        redirect('TrackingLog/showTrackingDetails/'.$idTracking);
+    }
+    
     public function deleteLog($idLog,$idTracking){
         $this->load-model('Log');
         $this->Log->deleteTrackingLog($idLog);
-        echo 'Dupa';die();
         redirect('TrackingLog/showTrackingDetails/'.$idTracking);
     }
 

@@ -32,8 +32,7 @@ class Log extends CI_Model {
     }
     
     public function deleteTrackingLog($idLog){
-        $this->db->where('idLog',$idLog);
-        $this->db->delete('Log');
+        $this->db->delete('Log', array('idLog' => $idLog)); 
     }
 
 }
