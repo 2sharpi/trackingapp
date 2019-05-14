@@ -74,6 +74,7 @@ class TrackingCase extends CI_Model {
         'przesyłka doręczona - odebrano przesyłkę zwrotną.' => array('hierarchy' => '0', 'description' => '', 'overallStatus' => '', 'address' => ''),
         'przesyłka doręczona w punkcie pickup - Odebrano przesyłkę zwrotną' => array('hierarchy' => '0', 'description' => '', 'overallStatus' => '', 'address' => 'API'),
         'przechowywanie przesyłki w punkcie pickup' => array('hierarchy' => '4', 'description' => 'At parcel delivery centre', 'overallStatus' => 'At parcel delivery centre', 'address' => 'FDS Depot'),
+        'zarejestrowano dane przesyłki, przesyłka jeszcze nie nadana' => array('hierarchy' => '1', 'description' => 'Collected from Sender', 'overallStatus' => 'Parcel handed to FDS', 'address' => 'Bedford MK42 (GB)'),
         'zarejestrowano dane przesyłki, przesyłka jeszcze nienadana' => array('hierarchy' => '1', 'description' => 'Collected from Sender', 'overallStatus' => 'Parcel handed to FDS', 'address' => 'Bedford MK42 (GB)'),
         'nieprzygotowana przesyłka zwrotna' => array('hierarchy' => '0', 'description' => '', 'overallStatus' => '', 'address' => ''),
         'wysłano powiadomienie' => array('hierarchy' => '0', 'description' => '', 'overallStatus' => '', 'address' => ''),

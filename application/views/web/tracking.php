@@ -70,11 +70,13 @@
 
                                 <div class="tracking-info">
                                     <div class="info-item"><strong>Parcel label number: </strong></div>
+                                    <div class="info-item"><strong>Address: </strong></div>
                                     <div class="info-item"><strong>Delivery status:</strong></div>
                                 </div>
 
                                 <div class="tracking-info-res">
                                     <div class="info-item"><?php echo $tracking->generatedTracking ?></div>
+                                    <div class="info-item"><?php echo $tracking->address ?></div>
                                     <div class="info-item"><?php echo $tracking->overallStatus ?></div>
                                 </div>
 
@@ -90,16 +92,16 @@
                             <?php foreach ($trackingLog as $log) {
                                 $d = new DateTime($log->Date);
                                 ?>
-    <?php $date = $d->format('Y-m-d');
-    $time = $d->format('H:i') ?>
+                                <?php $date = $d->format('Y-m-d');
+                                $time = $d->format('H:i') ?>
 
                                 <div class="status-item">
                                     <div class="date"><?php echo $date ?></div>
                                     <div class="time"><?php echo $time ?></div>
-                                    <div class="location"><?php echo $log->address .' '.$log->countryCode?></div>
+                                    <div class="location"><?php echo $log->address?></div>
                                     <div class="parcel"><?php echo $log->Description ?></div>
                                 </div>
-<?php } ?>
+                                <?php } ?>
 
 
                         </div>

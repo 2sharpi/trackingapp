@@ -11,16 +11,12 @@
                 <th>Numer DPD</th>
                 <th>Numer wygenerowany</th>
                 <th>Adres</th>
-                <th>Kod pocztowy</th>
-                <th>Kod kraju</th>
                 <th>Status ogólny</th>
             </tr>
                     <tr>
                         <th><?php echo $trackingData->realTracking ?></th>
                         <th><?php echo $trackingData->generatedTracking ?></th>
                         <th><?php echo $trackingData->address?></th>
-                        <th><?php echo $trackingData->postalCode?></th>
-                        <th><?php echo $trackingData->countryCode?></th>
                         <th><?php echo $trackingData->overallStatus?></th>
                         
                     </tr>
@@ -41,7 +37,6 @@
                 <th>Opis DPD</th>
                 
                 <th>Lokalizacja</th>
-                <th>Kod kraju</th>
                 <th>Ukrycie wpisu</th>
                 <th>Opcje</th>
             </tr>
@@ -61,7 +56,6 @@
                         <th><input type="text" name="description" value="<?php echo $tracking->Description ?>" ></th>
                         <th><input type="text" name="realDescription" value="<?php echo $tracking->realDescription ?>" ></th>
                         <th><input type="text" name="address" value="<?php echo $tracking->address ?>" ></th>
-                        <th><input type="text" name="countryCode" value="<?php echo $tracking->countryCode ?>" ></th>
                         <th><select name="isHidden">
                                 <option <?php if($tracking->isHidden == '1') {echo 'selected="selected"';}?>value="1">Tak</option>
                                 <option <?php if($tracking->isHidden == '0') {echo 'selected="selected"';}?>value="0">Nie</option>

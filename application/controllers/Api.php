@@ -24,38 +24,26 @@ class Api extends CI_Controller {
 
     private function setTrackingDataArray($result, $tracking, $trackingCase) {
         $data = array();
-        if (true) {
-            if ($trackingCase['hierarchy'] != $this->lastHierarchy) {
-                $this->lastHierarchy = $trackingCase['hierarchy'];
-                $data['Date'] = $result->eventTime;
-                $data['Description'] = $trackingCase['description'];
-                $data['Tracking_idTracking'] = $tracking->idTracking;
-                $data['hierarchy'] = $trackingCase['hierarchy'];
-                $data['realDescription'] = $result->description;
-                if ($trackingCase['address'] == 'API') {
-                    $data['address'] = $tracking->address;
-                    $data['countryCode'] = $tracking->countryCode;
-                } else {
-                    $data['address'] = $trackingCase['address'];
-                    $data['countryCode'] = 'UK';
-                }
-                array_push($this->data, $data);
-            }
+
+        $this->lastHierarchy = $trackingCase['hierarchy'];
+        $data['Date'] = $result->eventTime;
+        $data['Description'] = $trackingCase['description'];
+        $data['Tracking_idTracking'] = $tracking->idTracking;
+        $data['hierarchy'] = $trackingCase['hierarchy'];
+        $data['realDescription'] = $result->description;
+        if ($trackingCase['address'] == 'API') {
+            $data['address'] = $tracking->address;
         } else {
-            $data['Date'] = $result->eventTime;
-            $data['Description'] = 'Returned to sender';
-            $data['Tracking_idTracking'] = $tracking->idTracking;
-            $data['hierarchy'] = 6;
-            $data['realDescription'] = 'zwrot do nadawcy';
-            $data['address'] = 'FDS Depot';
-            $data['countryCode'] = 'UK';
+            $data['address'] = $trackingCase['address'];
         }
+        array_push($this->data, $data);
     }
 
     public function testTracking() {
 
         $connector = new SoapConnectorPl();
-        $resultObject = $connector->checkTrackingNumberPl(13439300055644);
+        $resultObject = $connector->checkTrackingNumberPl(13439300067559);
+        var_dump($resultObject);
     }
 
     public function updateTrackingLog($redirectToDashboard = null) {
@@ -84,14 +72,23 @@ class Api extends CI_Controller {
                     }
                 }
             }
+            $this->lastHierarchy == 0;
+            $this->data = array_reverse($this->data);
+            $uncheckedData = $this->data;
+            foreach ($uncheckedData as $key => $singleLog) {
+                if ($singleLog['hierarchy'] != $this->lastHierarchy) {
+                    $this->lastHierarchy = $singleLog['hierarchy'];
+                } else {
+                    unset($this->data[$key]);
+                }
+            }
+            $this->data = array_reverse($this->data);
         }
         foreach ($this->data as $singleLog) {
             $this->Log->insertTracking($singleLog);
-            
         }
 
         $this->data = [];
-        $this->lastHierarchy = 0;
         redirect(base_url('Dashboard'));
     }
 
