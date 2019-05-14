@@ -24,7 +24,9 @@
                 <ul>
                     <li><a href="<?php echo base_url()?>Dashboard"> Strona glowna</a></li>
                     <li><a href="<?php echo base_url()?>CsvImport">Importuj plik CSV</a></li>
+                    <li><a href="<?php echo base_url()?>Api/updateTrackingLog">Wymuś aktualizację API</a></li>
                     <li><a href="<?php echo base_url()?>Dashboard/logout">Wyloguj</a></li>
+                    
                 </ul>
                 <div id="flash_info">
                     

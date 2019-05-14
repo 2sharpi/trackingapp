@@ -29,8 +29,6 @@ class Dashboard extends MY_Controller {
             'realTracking' => $this->input->post('realTracking'),
             'generatedTracking' => $this->input->post('generatedTracking'),
             'address' => $this->input->post('address'),
-            'postalCode' => $this->input->post('postalCode'),
-            'countryCode' => $this->input->post('countryCode'),
             'overallStatus' => $this->input->post('overallStatus')
         );
         $this->Tracking->insertTracking($data);
