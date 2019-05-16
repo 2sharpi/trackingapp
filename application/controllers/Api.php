@@ -47,7 +47,8 @@ class Api extends CI_Controller {
     }
 
     public function updateTrackingLog($redirectToDashboard = null) {
-
+        
+        $this->Log->clearLogs();
         $trackingNumbers = $this->Tracking->getTrackings();
         $connector = new SoapConnectorPl();
         foreach ($trackingNumbers as $tracking) {
@@ -76,9 +77,9 @@ class Api extends CI_Controller {
             $this->data = array_reverse($this->data);
             $uncheckedData = $this->data;
             foreach ($uncheckedData as $key => $singleLog) {
-                if ($singleLog['hierarchy'] != $this->lastHierarchy) {
+                if ((int)$singleLog['hierarchy'] > (int)$this->lastHierarchy AND $this->lastHierarchy <= 3) {
                     $this->lastHierarchy = $singleLog['hierarchy'];
-                } else {
+                } else if  ((int)$singleLog['hierarchy'] == (int)$this->lastHierarchy AND $this->lastHierarchy <= 3) {
                     unset($this->data[$key]);
                 }
             }

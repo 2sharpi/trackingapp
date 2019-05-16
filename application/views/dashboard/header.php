@@ -20,7 +20,7 @@
 
         <div class="todo">
 
-            <nav>
+            <nav clas="navbar">
                 <ul>
                     <li><a href="<?php echo base_url()?>Dashboard"> Strona glowna</a></li>
                     <li><a href="<?php echo base_url()?>CsvImport">Importuj plik CSV</a></li>

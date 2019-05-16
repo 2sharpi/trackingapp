@@ -1,7 +1,7 @@
 
 <main class="panelD">
 
-    <h1 class="tituloD">Dashboard</h1>
+    <h1 class="tituloD"><a href="<?php echo base_url('PublicPage/tracking/'.$trackingData->generatedTracking)?>"><?php echo base_url('PublicPage/tracking/'.$trackingData->generatedTracking)?></a></h1>
 
 
     <h2>Sczególy<i class="fas fa-arrow-down"></i></h2>
@@ -116,7 +116,9 @@
 }
 ?>
         </table>
+
     </div>
+    
 </main>
 
 </div>
