@@ -29,7 +29,7 @@ class Dashboard extends MY_Controller {
             'realTracking' => $this->input->post('realTracking'),
             'generatedTracking' => $this->input->post('generatedTracking'),
             'address' => $this->input->post('address'),
-            'overallStatus' => $this->input->post('overallStatus')
+            'overallStatus' => 'Delivered'
         );
         $this->Tracking->insertTracking($data);
         redirect('Dashboard');

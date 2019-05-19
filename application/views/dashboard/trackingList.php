@@ -9,13 +9,6 @@
             <input type="text" name="realTracking" value="" placeholder="Numer DPD">
             <input type="text" name="generatedTracking" value="" placeholder="Numer wewnętrzny (zostaw jeśi system ma go wygenerować automatycznie)">
             <input type="text" name="address" value="" placeholder="Adres">
-            <select id="overallStatus" name="isHidden">
-                        <option  value="Delivered">Delivered</option>
-                        <option  value="Out for delivery">Out for delivery</option>
-                        <option  value="At parcel delivery centre">At parcel delivery centre</option>
-                        <option  value="In Transit">In Transit</option>
-                        <option  value="Parcel handed to FDS">Parcel handed to FDS</option>
-                    </select>
             <br>
             <input type="submit" name="addNewTracking" value="Dodaj" class="botonEnviar">
 

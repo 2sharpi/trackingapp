@@ -10,30 +10,38 @@
                     <div class="go-tracking">
                         <h1>Parcel tracking:</h1>
                         <div class="search-label"><form method="post" action="<?php echo base_url('PublicPage/tracking'); ?>">   
-                                <input class="label-track" type="text" name="trackingNumber" placeholder="Enter the shipment number"></input>
+                                <input class="label-track numberFont" type="text" name="trackingNumber" placeholder="Enter the shipment number"></input>
                                 <input style="height:50px" type="image" src="<?php echo base_url('/views/web/') ?>img/search.svg" border="0" alt="Submit" />
                             </form></div>
                     </div>
 
                     <div class="tracking-step">
+                        
+                        <?php
+                        $parcelCount = 0;
+                        if ($tracking->overallStatus == "Parcel handed to FDS"){
+                            $parcelCount = 1;
+                        }
+                        if ($tracking->overallStatus == "In Transit"){
+                            $parcelCount = 2;
+                        }
+                        if ($tracking->overallStatus == "At parcel delivery centre"){
+                            $parcelCount = 3;
+                        }
+                        if ($tracking->overallStatus == "Out for delivery"){
+                            $parcelCount = 4;
+                        }
+                        if ($tracking->overallStatus == "Delivered"){
+                            $parcelCount = 5;
+                        }?>
 
-                        <div id="first-step" class="step">Parcel handed to FDS</div>
-                        <div id="step-two" class="step">In transit</div>
-                        <div class="step">At parcel delivery centre</div>
-                        <div class="step">Parcel out for delivery</div>
-                        <div id="last-step" class="step">Delivered</div>
+                        <div id="first-step" class="step <?php if($parcelCount > 0){ echo 'active'; $parcelCount--;}?>">Parcel handed to FDS</div>
+                        <div id="step-two" class="step <?php if($parcelCount > 0){ echo 'active'; $parcelCount--;}?>">In transit</div>
+                        <div class="step <?php if($parcelCount > 0){ echo 'active'; $parcelCount--;}?>">At parcel delivery centre</div>
+                        <div class="step <?php if($parcelCount > 0){ echo 'active'; $parcelCount--;}?>">Parcel out for delivery</div>
+                        <div id="last-step" class=" <?php if($parcelCount > 0){ echo 'active'; $parcelCount--;}?> step">Delivered</div>
 
                     </div>
-                    <script type="text/javascript">
-                        var statusCase = ['Parcel handed to FDS','In transit','At parcel delivery centre','Parcel out for delivery','Delivered'];
-                        var elements = document.getElementsByClassName('step');
-                        var count = 0;
-                        for(count = 0; count > statusCase.indexOf('<?php echo $tracking->overallStatus  ?>'); count++){
-                            
-                            elements[count].classList.add("active");
-                            console.log(elements[count]);
-                        }
-                    </script>
                     <div class="trans-page">
 
                         <div class="track-number">		
@@ -46,7 +54,7 @@
                                 </div>
 
                                 <div class="tracking-info-res">
-                                    <div class="info-item"><?php echo $tracking->generatedTracking ?></div>
+                                    <div class="info-item numberFont "><?php echo $tracking->generatedTracking ?></div>
                                     <div class="info-item"><?php echo $tracking->address ?></div>
                                     <div id="deliveryStatus" class="info-item"><?php echo $tracking->overallStatus ?></div>
                                 </div>
@@ -57,7 +65,7 @@
                             <div class="status-item-name">
                                 <div class="date">Date</div>
                                 <div class="time">Time</div>
-                                <div class="location">Parcel Center</div>
+                                <div class="location">Location</div>
                                 <div class="parcel">Parcel status</div>
                             </div>  
                             <?php foreach ($trackingLog as $log) {
@@ -67,8 +75,8 @@
                                 $time = $d->format('H:i') ?>
 
                                 <div class="status-item">
-                                    <div class="date"><?php echo $date ?></div>
-                                    <div class="time"><?php echo $time ?></div>
+                                    <div class="date numberFont"><?php echo $date ?></div>
+                                    <div class="time numberFont"><?php echo $time ?></div>
                                     <div class="location"><?php echo $log->address?></div>
                                     <div class="parcel"><?php echo $log->Description ?></div>
                                 </div>

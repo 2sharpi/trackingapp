@@ -63,5 +63,19 @@ class Tracking extends CI_Model {
         }
         return $result[0]->idTracking;
     }
+    
+    //setParcelInfo($tracking->realTracking, $SingleResult->PackageReference)
+            
+    public function setParcelInfo($realTracking, $value){
+        $data = array('parcelInfo' => $value);
+        $this->db->where('realTracking',$realTracking);
+        $this->db->update('parcelInfo',$value); 
+    }     
+    
+    public function updateIsParcelInfoHidden($realTracking, $value){
+        $data = array('isParcelInfoHidden' => $value);
+        $this->db->where('realTracking', $realTracking);
+        $this->db->update('Tracking', $data);
+    }
 
 }

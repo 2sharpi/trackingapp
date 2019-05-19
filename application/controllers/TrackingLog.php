@@ -23,9 +23,8 @@ class TrackingLog extends MY_Controller {
         $data = array(
             'Date' => $this->input->post('date').'T'.$this->input->post('time'),
             'Description' => $this->input->post('description'),
-            'realDescription' => $this->input->post('realDescritpion'),
+            'realDescription' => $this->input->post('realDescription'),
             'address' => $this->input->post('address'),
-            'countryCode' => $this->input->post('countryCode'),
             'isHidden' => $this->input->post('isHidden')
         );
         //var_dump($data);die();
@@ -42,6 +41,12 @@ class TrackingLog extends MY_Controller {
     public function deleteLog($idLog,$idTracking){
         $this->load-model('Log');
         $this->Log->deleteTrackingLog($idLog);
+        redirect('TrackingLog/showTrackingDetails/'.$idTracking);
+    }
+    
+    public function updateDisplayParcelInfo($realTracking,$value,$idTracking){
+        $this->load->model('Tracking');
+        $this->Tracking->updateIsParcelInfoHidden($realTracking,urldecode($value),$idTracking);
         redirect('TrackingLog/showTrackingDetails/'.$idTracking);
     }
 

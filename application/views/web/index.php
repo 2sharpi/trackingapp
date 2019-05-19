@@ -9,7 +9,7 @@
                         <h1>Your new courier service provider in the UK</h1>
                         <div class="search-label">
                             <form method="post" action="<?php echo base_url('PublicPage/tracking'); ?>">   
-                                <input class="label-home" type="text" name="trackingNumber" placeholder="Enter the shipment number"></input>
+                                <input class=" numberFont label-home" type="text" name="trackingNumber" placeholder="Enter the shipment number"></input>
                                 <input style="height:50px" type="image" src="<?php echo base_url('/views/web/') ?>img/search.svg" border="0" alt="Submit" />
                             </form>
                         </div>
