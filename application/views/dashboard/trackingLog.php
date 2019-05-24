@@ -6,19 +6,21 @@
 
     <h2>Sczególy<i class="fas fa-arrow-down"></i></h2>
     <div class="tabla">
+        <form method="post" action="<?php echo base_url() ?>TrackingLog/updateTracking/<?php echo $trackingData->idTracking ?>">
         <table cellpadding="0" cellspacing="0">
             <tr class="negrita">
                 <th>Numer DPD</th>
                 <th>Numer wygenerowany</th>
                 <th>Adres</th>
                 <th>Status ogólny</th>
+                <th>Ostatnia aktualizacja</th>
                 <th>Opcje</th>
             </tr>
             <tr>
                 <th><?php echo $trackingData->realTracking ?></th>
-                <th><?php echo $trackingData->generatedTracking ?></th>
-                <th><?php echo $trackingData->address ?></th>
-                <th> <select id="overallStatus" name="isHidden">
+                <th><input type="text" name="generatedTracking" value="<?php echo $trackingData->generatedTracking ?>" /></th>
+                <th><input type="text" name="address" value="<?php echo $trackingData->address ?>" /></th>
+                <th> <select id="overallStatus" name="overallStatus">
                         <option <?php
                         if ($trackingData->overallStatus == 'Delivered') {
                             echo 'selected="selected"';
@@ -45,21 +47,15 @@
                         }
                         ?> value="Parcel handed to FDS">Parcel handed to FDS</option>
                     </select></th>  
-                <th><button id="updateTracking">Aktualizuj</button></th>
+                    <th><?php echo $trackingData->lastUpdate?></th>
+                <th><button type="submit">Aktualizuj</button></th>
 
             </tr>
 
         </table>
+        </form> 
     </div>
-    <script type="text/javascript">
-        document.getElementById('updateTracking').addEventListener('click', updateOverallStatus);
-
-        function updateOverallStatus() {
-            var value = document.getElementById('overallStatus').value;
-            window.location.href = "<?php echo base_url() ?>TrackingLog/updateTrackingStatus/<?php echo $trackingData->realTracking ?>/" + value + '/' +<?php echo $trackingData->idTracking ?>;
-        }
-    </script>
-
+   
 
 
 
@@ -107,6 +103,7 @@
 
 
                         <input type="hidden" name="idTracking" value="<?php echo $trackingData->idTracking ?>" />
+                        
                         <th><button type="submit">Zmień</button>
 
                     </form>

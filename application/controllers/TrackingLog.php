@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 defined('BASEPATH') or exit('access denied');
 
@@ -32,9 +32,14 @@ class TrackingLog extends MY_Controller {
         redirect('TrackingLog/showTrackingDetails/'.$this->input->post('idTracking'));
     }
     
-    public function updateTrackingStatus($realTracking,$overallStatus,$idTracking){
+    public function updateTracking($idTracking){
+        $data = array(
+          'generatedTracking' => $this->input->post('generatedTracking'),
+          'address' => $this->input->post('address'),
+          'overallStatus' => $this->input->post('overallStatus')
+        );
         $this->load->model('Tracking');
-        $this->Tracking->updateOverallStatus($realTracking,urldecode($overallStatus));
+        $this->Tracking->updateTracking($idTracking,$data);
         redirect('TrackingLog/showTrackingDetails/'.$idTracking);
     }
     

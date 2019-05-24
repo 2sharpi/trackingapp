@@ -17,15 +17,10 @@ class Api extends CI_Controller {
         $this->load->model('TrackingCase');
     }
 
-    private function checkParcelDelivery($trackingLog, $tracking) {
-        if ($trackingLog->description == 'Przesyłka doręczona ') {
-            $this->Tracking->updateDeliveryStatus($tracking);
-        }
-    }
 
     private function setTrackingDataArray($result, $tracking, $trackingCase) {
 
-        if($result->country == 'PL' AND $this->isOutsidePl == true AND $trackingCase['description'] != 'Delivered'){
+        if($result->country == 'PL' AND $this->isOutsidePl == true AND $trackingCase['hierarchy'] != '5'){
             return false;
         }
         
@@ -40,7 +35,6 @@ class Api extends CI_Controller {
         $data['realDescription'] = $result->description;
         $data['businessCode'] = $result->businessCode;
         $data['country'] = $result->country;
-        
         if ($trackingCase['address'] == 'Dane klienta (CSV), API(Panstwo)') {
             $data['address'] = $tracking->address . ','.$data['country'];
         } else if ($trackingCase['address'] == 'Dane klienta (CSV), API(Panstwo)') {
@@ -52,7 +46,7 @@ class Api extends CI_Controller {
         } else {
             $data['address'] = $trackingCase['address'];
         }
-        if($result->country == 'PL' AND $this->isOutsidePl == true AND $trackingCase['description'] == 'Delivered'){
+        if($result->country == 'PL' AND $this->isOutsidePl == true AND $trackingCase['hierarchy'] == '5'){
             $data['address'] = 'Bedford MK42, GB';
         }
         array_push($this->data, $data);
@@ -68,9 +62,10 @@ class Api extends CI_Controller {
     public function updateTrackingLog($redirectToDashboard = null) {
 
         $this->Log->clearLogs();
-        $trackingNumbers = $this->Tracking->getTrackings();
+        $trackingNumbers = $this->Tracking->getUndeliveredTrackings();
         $connector = new SoapConnectorPl();
         foreach ($trackingNumbers as $tracking) {
+            
             $resultObject = $connector->checkTrackingNumberPl($tracking->realTracking);
 
 
@@ -94,13 +89,15 @@ class Api extends CI_Controller {
             if (gettype($result) === "object") {
                 $trackingCase = $this->TrackingCase->getTrackingCase(strtolower(rtrim($result->description)));
                 $this->setTrackingDataArray($result, $tracking, $trackingCase);
-                $this->Tracking->updateOverallStatus($tracking->realTracking, $trackingCase['overallStatus']);
+               //$this->Tracking->updateOverallStatus($tracking->realTracking, $trackingCase['overallStatus']);
+                $this->Tracking->setLastUpdatetime($tracking->idTracking,date('m/d/Y h:i:s a', time()));
             } else {
                 foreach ($result as $key => $singleResult) {
                     $trackingCase = $this->TrackingCase->getTrackingCase(strtolower(rtrim($singleResult->description)));
                     $this->setTrackingDataArray($singleResult, $tracking, $trackingCase);
                     if ($key == 0) {
-                        $this->Tracking->updateOverallStatus($tracking->realTracking, $trackingCase['overallStatus']);
+                        //  $this->Tracking->updateOverallStatus($tracking->realTracking, $trackingCase['overallStatus']);
+                        $this->Tracking->setLastUpdatetime($tracking->idTracking,date('m/d/Y h:i:s a', time()));
                     }
                 }
             }
@@ -134,11 +131,13 @@ class Api extends CI_Controller {
                 }
             }
 
-
-
-
-            $this->isOutsidePl = false;
+            
             $this->data = array_reverse($this->data);
+            reset($this->data);
+            $lastElement = current($this->data);
+            $trackingCase = $this->TrackingCase->getTrackingCase(strtolower(rtrim($lastElement['realDescription'])));
+            $this->Tracking->updateOverallStatus($tracking->realTracking, $trackingCase['overallStatus']);
+                $this->isOutsidePl = false;
             foreach ($this->data as $singleLog) {
                 $this->Log->insertTracking($singleLog);
                 $this->data = [];

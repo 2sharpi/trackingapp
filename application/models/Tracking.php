@@ -3,7 +3,7 @@
 defined('BASEPATH') or exit('access denied');
 
 class Tracking extends CI_Model {
-
+    
     public function checkTrackingNumber($trackingNumber) {
         $query = $this->db->get_where('Tracking', array('realTracking' => $trackingNumber));
         return $query->result();
@@ -14,18 +14,24 @@ class Tracking extends CI_Model {
         return $query->result();
     }
 
-    public function getTrackings($limit = null) {
+    public function getTrackings($limit = null, $offset = null) {
         $query = null;
         if ($limit === null) {
             $query = $this->db->get('Tracking');
         } else {
-            $query = $this->db->get('Tracking', $limit);
+            $this->db->limit($limit,$offset);
+            $query = $this->db->get('Tracking');
         }
-        return $query->result();
+         
+        $result = $query->result();
+        return $result;
     }
 
     public function getUndeliveredTrackings() {
-        $query = $this->db->get_where('Tracking', array('isDelivered' => false));
+        $query = null;
+        $this->db->where('overallStatus !=','Delivered');
+        $this->db->or_where('overallStatus',null);
+        $query = $this->db->get('Tracking');
         return $query->result();
     }
 
@@ -47,10 +53,15 @@ class Tracking extends CI_Model {
         $this->db->insert('Tracking', $trackingArray);
         $this->db->trans_complete();
     }
-
-    public function updateOverallStatus($realTracking, $value = true) {
+    
+   public function updateOverallStatus($realTracking, $value = true) {
         $data = array('overallStatus' => $value);
         $this->db->where('realTracking', $realTracking);
+        $this->db->update('Tracking', $data);
+    }
+
+    public function updateTracking($idTracking, $data) {
+        $this->db->where('idTracking',$idTracking);
         $this->db->update('Tracking', $data);
     }
 
@@ -76,6 +87,22 @@ class Tracking extends CI_Model {
         $data = array('isParcelInfoHidden' => $value);
         $this->db->where('realTracking', $realTracking);
         $this->db->update('Tracking', $data);
+    }
+    
+    public function deleteTrackingById($idTracking){
+          $this->db->delete('Tracking',array('idTracking' => $idTracking));
+    }
+    
+    public function setLastUpdatetime($idTracking,$value){
+        $data = array('lastUpdate' => $value);
+        $this->db->where('idTracking',$idTracking);
+        $this->db->update('Tracking',$data);
+    }
+    
+    public function findTracking($data){
+        $this->db->where($data);
+        $query = $this->db->get('Tracking');
+        return $query->result();
     }
 
 }

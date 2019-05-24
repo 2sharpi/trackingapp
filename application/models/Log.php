@@ -20,13 +20,14 @@ class Log extends CI_Model {
         return $result;
     }
 
-    public function insertTracking(array $trackingLog) {
-        $modifiedData = $trackingLog;
+    public function insertTracking(array $trackingLogs) {
+        $this->db->reset_query();
+        $modifiedData = $trackingLogs;
         unset($modifiedData['Description']);
         $query = $this->db->get_where('Log', $modifiedData);
         
         if (sizeof($query->result()) === 0) {
-            $this->db->insert('Log', $trackingLog);
+            $this->db->insert('Log', $trackingLogs);
         }
     }
     
@@ -38,6 +39,10 @@ class Log extends CI_Model {
     
     public function deleteTrackingLog($idLog){
         $this->db->delete('Log', array('idLog' => $idLog)); 
+    }
+    
+    public function deleteLogByTrackingId($idTracking){
+        $this->db->delete('Log',array('Tracking_idTracking' => $idTracking));
     }
 
 }

@@ -7,7 +7,7 @@
                     <li><a href="<?php echo base_url('PublicPage/offer') ?>">Offer</a></li>
                     <li><a href="<?php echo base_url('PublicPage/privacyPolicy'); ?>" >Privacy Policy</a></li>
                     <li><a href="<?php echo base_url('PublicPage/termsAndConditions') ?>" >Terms and conditions</a></li>
-
+                    <li><a href="<?php echo base_url('PublicPage/contact')?>">Contact</a></li>
                 </ul>                    
             </div>
         </div>

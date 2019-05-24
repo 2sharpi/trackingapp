@@ -45,6 +45,12 @@ class PublicPage extends CI_Controller{
         $this->load->view('web/offer.php');
         $this->load->view('web/footer.php');
     }
+    
+    public function contact(){
+        $this->load->view('web/header.php');
+        $this->load->view('web/contact.php');
+        $this->load->view('web/footer.php');
+    }
 }
 
    
