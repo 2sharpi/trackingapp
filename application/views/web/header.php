@@ -2,19 +2,19 @@
 <html lang="en" class="no-js">
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <meta https-equiv="X-UA-Compatible" content="IE=edge"> 
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <title>FDS PARCEL - FAST DELIVERY</title>
         <meta name="description" content="All For Movies" />
         <meta name="keywords" content="All For Movies" />
         <meta name="author" content="All For Movies" />
-        <link rel="shortcut icon" href="http://all.com.pl/wp-content/themes/all/images/favicon.ico" />
-        <link href='http://fonts.googleapis.com/css?family=Raleway:400,800,500,600' rel='stylesheet' type='text/css'>
+        <link rel="shortcut icon" href="httss://all.com.pl/wp-content/themes/all/images/favicon.ico" />
+        <link href='https://fonts.googleapis.com/css?family=Raleway:400,800,500,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('views/web/') ?>css/normalize.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('views/web/') ?>css/style.css" />
         <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
         <!--[if IE]>
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="httpss://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
     </head>
     <body>

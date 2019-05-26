@@ -10,9 +10,9 @@
             content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
             />
 
-        <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Kodchasan&display=swap" rel="stylesheet"> 
+        <link href="httpss://fonts.googleapis.com/css?family=Muli:400,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="httpss://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        <link href="httpss://fonts.googleapis.com/css?family=Kodchasan&display=swap" rel="stylesheet"> 
 
 
     </head>

@@ -17,6 +17,7 @@
                 <th>Opcje</th>
             </tr>
             <tr>
+                
                 <th><?php echo $trackingData->realTracking ?></th>
                 <th><input type="text" name="generatedTracking" value="<?php echo $trackingData->generatedTracking ?>" /></th>
                 <th><input type="text" name="address" value="<?php echo $trackingData->address ?>" /></th>
@@ -63,6 +64,7 @@
     <div class="tabla">
         <table cellpadding="0" cellspacing="0">
             <tr class="negrita">
+                
                 <th>Data</th>
                 <th>Godzina</th>
                 <th>Opis</th>

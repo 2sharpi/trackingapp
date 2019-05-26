@@ -9,6 +9,7 @@ class Api extends CI_Controller {
     private $data = [];
     private $lastHierarchy = 0;
     private $isOutsidePl = false;
+    private $failedDelivery = false;
 
     public function __construct() {
         parent::__construct();
@@ -23,6 +24,9 @@ class Api extends CI_Controller {
         if($result->country == 'PL' AND $this->isOutsidePl == true AND $trackingCase['hierarchy'] != '5'){
             return false;
         }
+        if($result->country == 'PL' and $this->failedDelivery == true AND $trackingCase['description'] != 'Delivered'){
+            return false;
+        }
         
         if ($result->businessCode == '230405') {
             $this->isOutsidePl = true;
@@ -35,6 +39,12 @@ class Api extends CI_Controller {
         $data['realDescription'] = $result->description;
         $data['businessCode'] = $result->businessCode;
         $data['country'] = $result->country;
+	if($result->country === 'PL'){
+            $data['country'] = '';
+        }
+        if (strpos($data['Description'], 'Parcel could not be delivered') !== false) {
+            $this->failedDelivery = true;
+        }
         if ($trackingCase['address'] == 'Dane klienta (CSV), API(Panstwo)') {
             $data['address'] = $tracking->address . ','.$data['country'];
         } else if ($trackingCase['address'] == 'Dane klienta (CSV), API(Panstwo)') {
@@ -49,6 +59,9 @@ class Api extends CI_Controller {
         if($result->country == 'PL' AND $this->isOutsidePl == true AND $trackingCase['hierarchy'] == '5'){
             $data['address'] = 'Bedford MK42, GB';
         }
+         if($result->country == 'PL' AND $this->failedDelivery == true AND $trackingCase['description'] == 'Delivered'){
+             $data['address'] = 'Bedford MK42, GB';
+         }
         array_push($this->data, $data);
     }
 
@@ -61,7 +74,7 @@ class Api extends CI_Controller {
 
     public function updateTrackingLog($redirectToDashboard = null) {
 
-        $this->Log->clearLogs();
+        //$this->Log->clearLogs();
         $trackingNumbers = $this->Tracking->getUndeliveredTrackings();
         $connector = new SoapConnectorPl();
         foreach ($trackingNumbers as $tracking) {
@@ -74,7 +87,7 @@ class Api extends CI_Controller {
                 continue;
             }
             $result = $resultObject->return->eventsList;
-
+            if(is_array($result)){
             usort($result, function($a, $b) {
                 $ad = new DateTime($a->eventTime);
                 $bd = new DateTime($b->eventTime);
@@ -85,7 +98,7 @@ class Api extends CI_Controller {
 
                 return $ad < $bd ? -1 : 1;
             });
-
+            }
             if (gettype($result) === "object") {
                 $trackingCase = $this->TrackingCase->getTrackingCase(strtolower(rtrim($result->description)));
                 $this->setTrackingDataArray($result, $tracking, $trackingCase);
@@ -138,6 +151,7 @@ class Api extends CI_Controller {
             $trackingCase = $this->TrackingCase->getTrackingCase(strtolower(rtrim($lastElement['realDescription'])));
             $this->Tracking->updateOverallStatus($tracking->realTracking, $trackingCase['overallStatus']);
                 $this->isOutsidePl = false;
+                $this->failedDelivery = false;
             foreach ($this->data as $singleLog) {
                 $this->Log->insertTracking($singleLog);
                 $this->data = [];

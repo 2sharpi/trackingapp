@@ -90,10 +90,10 @@ h1{font-size: 2.3rem}
 }
 .aboutus h2{font-size: 2.3rem;}
 .aboutus p{line-height: 1.8em}
-.aboutus .contener{display: grid;grid-template-columns: 50% 50%;height: 70vh}
+.aboutus .contener{display: grid;grid-template-columns: 50% 50%;}
 .about-left{
-    padding-right: 70px;
-    padding-left: 70px;
+    padding-right: 2vw;
+    padding-left: 2vw;
     background-color: white;
 }
 
@@ -339,6 +339,12 @@ details p{padding: 30px 0;font-weight: normal}
     padding: 0;
     border: 0;
     transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  #menu-toggle ~ .menu li a{
+    display:none
+  }
+  #menu-toggle:checked ~ .menu li a{
+    display:flex
   }
   #menu-toggle:checked ~ .menu li {
     border: 1px solid #f2f2f2;

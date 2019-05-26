@@ -9,6 +9,7 @@
             <input type="text" name="realTracking" value="" placeholder="Numer DPD">
             <input type="text" name="generatedTracking" value="" placeholder="Numer wewnętrzny (zostaw jeśi system ma go wygenerować automatycznie)">
             <input type="text" name="address" value="" placeholder="Adres">
+            <input type="hidden" name="overallStatus" value="Parcel handed to FDS" />
             <br>
             <input type="submit" name="addNewTracking" value="Dodaj" class="botonEnviar">
 
